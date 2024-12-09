@@ -1,6 +1,6 @@
 (function() {
   // XPath expressions for the two possible target elements
-  const xpath1 = "//*[@id='bubble-297']/div/div/div/div/div[2]/div[3]/div/ul/li/span[4]/span";
+  const xpath1 = "//*[starts-with(@id, 'bubble-')]/div/div/div/div/div[2]/div[3]/div/ul/li/span[4]/span";
   const xpath2 = "/html/body/div[4]/div/div/div[2]/div[3]/div[2]/div[5]/div[2]/div[1]/div/div/div/div/div[2]/div[3]/div/ul/li/span[4]/span";
 
   // Function to evaluate XPath and return the element
@@ -10,6 +10,7 @@
 
   // Function to apply text-wrap styles
   function applyTextWrapFix(targetElement) {
+    console.log("xpath: ", targetElement);
     if (targetElement) {
       targetElement.style.whiteSpace = "normal";
       targetElement.style.wordBreak = "break-word";
@@ -25,8 +26,10 @@
       if (mutation.type === 'childList' || mutation.type === 'characterData') {
         // Try to find the target element using both XPaths
         let targetElement = getElementByXPath(xpath1);
+        console.log("xpath1: ", targetElement);
         if (!targetElement) {
           targetElement = getElementByXPath(xpath2);
+          console.log("xpath2: ", targetElement);
         }
 
         // Apply the fix if the element is found
